@@ -50,6 +50,8 @@ function Cart() {
   const [pincode, setPincode] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
 
+  const loggedInUser = JSON.parse(localStorage.getItem('user'));
+
   const buyNow = async () =>{
     if(name == "" || address == "" || pincode == "" || phoneNumber == ""){
       return toast.error("All fields are required",{
@@ -187,6 +189,7 @@ function Cart() {
             setPincode={setPincode} 
             setPhoneNumber={setPhoneNumber} 
             buyNow={buyNow} 
+            loggedInUser={loggedInUser}
            />
           </div>
         </div>
