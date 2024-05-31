@@ -14,6 +14,7 @@ import AddProduct from './pages/admin/pages/AddProduct'
 import UpdateProduct from './pages/admin/pages/UpdateProduct'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Allproducts from './pages/allproducts/Allproducts'
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
         <UpdateProduct/>
       </ProtectedRouteForAdmin>
         }/>
+      <Route path="/allproducts" element={<Allproducts/> } />
       <Route path="/*" element={<Nopage/>} />
     </Routes>
     <ToastContainer/>

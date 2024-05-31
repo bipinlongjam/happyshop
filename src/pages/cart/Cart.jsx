@@ -4,7 +4,7 @@ import Layout from '../../components/Layout/Layout';
 import Modal from '../../components/modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { deleteFromCart } from '../../redux/cartSlice';
+import { clearCart, deleteFromCart } from '../../redux/cartSlice';
 import { addDoc, collection } from 'firebase/firestore';
 import { fireDB } from '../../firebase/FirebaseConfig';
 
@@ -40,7 +40,9 @@ function Cart() {
 
   const shipping = parseInt(100);
 
-  const grandTotal = shipping + totalAmount;
+  const deliveryCharge = totalAmount < 500 ? shipping : 0
+
+  const grandTotal = deliveryCharge + totalAmount;
   console.log(grandTotal)
 
   const [name, setName] = useState("")
@@ -81,7 +83,7 @@ function Cart() {
       amount: parseInt(grandTotal * 100),
       currency: "INR",
       order_receipt: 'order_rcptid_' + name,
-      name: "Happy-Shopping",
+      name: "MarketNest",
       description: "for testing purpose",
       handler: function (response) {
           console.log(response)
@@ -107,6 +109,8 @@ function Cart() {
           try{
             const orderRef = collection(fireDB,"order");
             addDoc(orderRef, orderInfo)
+            dispatch(clearCart());
+            localStorage.removeItem('cart')
           }
           catch(error){
             console.log(error)
@@ -122,7 +126,6 @@ function Cart() {
   pay.open();
   console.log(pay)
   }
-
 
   return (
     <Layout >
@@ -164,7 +167,7 @@ function Cart() {
             </div>
             <div className="flex justify-between">
               <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>Shipping</p>
-              <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{shipping}</p>
+              <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{deliveryCharge}</p>
             </div>
             <hr className="my-4" />
             <div className="flex justify-between mb-3">

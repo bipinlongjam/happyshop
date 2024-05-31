@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 
 function DashboardTab() {
     const context = useContext(myContext)
-    const { mode, product, editHandle, deleteProduct,order } = context
-    console.log(product)
+    const { mode, product, editHandle, deleteProduct,order, user } = context
+
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
@@ -254,54 +254,46 @@ function DashboardTab() {
                                             <th scope="col" className="px-6 py-3">
                                                 S.No
                                             </th>
-
                                             <th scope="col" className="px-6 py-3">
                                                 Name
                                             </th>
                                             <th scope="col" className="px-6 py-3">
-                                                Address
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
-                                                Pincode
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
-                                                Phone Number
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
                                                 Email
+                                            </th>
+                                            <th scope="col" className="px-6 py-3">
+                                                Uid
                                             </th>
                                             <th scope="col" className="px-6 py-3">
                                                 Date
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                      
-                                                <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        1.
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        Name
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        Address
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        181919
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        1991818818
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                       kkk@gmail.com
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        12 Aug 2019
-                                                    </td>
+                                {user.map((item, index) =>{
+                                    const {name, uid, email} = item;
+                                    return (
+                                        <tbody key={index} >
+                                        <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
+                                            <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                                {index + 1}
+                                            </td>
+                                            <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                                {name}
+                                            </td>
+                                            <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                                {email}
+                                            </td>
+                                            <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                                {uid}
+                                            </td>
+                                            
+                                            <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                               
+                                            </td>
 
-                                                </tr>
-                                    </tbody>
+                                        </tr>
+                            </tbody>
+                                    )
+                                })}
                                 </table>
                             </div>
                         </TabPanel>
